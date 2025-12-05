@@ -2,7 +2,7 @@
 
 import { type Client, type Options as Options2, type TDataShape, urlSearchParamsBodySerializer } from './client';
 import { client } from './client.gen';
-import type { CreateUserAuthPostData, CreateUserAuthPostErrors, CreateUserAuthPostResponses, CreateUserProfileUserProfilePostData, CreateUserProfileUserProfilePostErrors, CreateUserProfileUserProfilePostResponses, DeleteUserProfileUserProfileDeleteData, DeleteUserProfileUserProfileDeleteErrors, DeleteUserProfileUserProfileDeleteResponses, GetUserProfileUserProfileGetData, GetUserProfileUserProfileGetErrors, GetUserProfileUserProfileGetResponses, GetUserProfileUserProfileUserProfileGetData, GetUserProfileUserProfileUserProfileGetResponses, LoginForAccessTokenAuthTokenPostData, LoginForAccessTokenAuthTokenPostErrors, LoginForAccessTokenAuthTokenPostResponses, ReadRootGetData, ReadRootGetResponses } from './types.gen';
+import type { CreateUserAuthPostData, CreateUserAuthPostErrors, CreateUserAuthPostResponses, CreateUserProfileUserProfilePostData, CreateUserProfileUserProfilePostErrors, CreateUserProfileUserProfilePostResponses, DeleteUserProfileUserProfileDeleteData, DeleteUserProfileUserProfileDeleteErrors, DeleteUserProfileUserProfileDeleteResponses, GetUserProfileUserProfileGetData, GetUserProfileUserProfileGetResponses, LoginForAccessTokenAuthTokenPostData, LoginForAccessTokenAuthTokenPostErrors, LoginForAccessTokenAuthTokenPostResponses, ReadRootGetData, ReadRootGetResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean> = Options2<TData, ThrowOnError> & {
     /**
@@ -58,9 +58,9 @@ export const deleteUserProfileUserProfileDelete = <ThrowOnError extends boolean 
 });
 
 /**
- * Get Userprofile
+ * Get User Profile
  */
-export const getUserProfileUserProfileGet = <ThrowOnError extends boolean = false>(options: Options<GetUserProfileUserProfileGetData, ThrowOnError>) => (options.client ?? client).get<GetUserProfileUserProfileGetResponses, GetUserProfileUserProfileGetErrors, ThrowOnError>({
+export const getUserProfileUserProfileGet = <ThrowOnError extends boolean = false>(options?: Options<GetUserProfileUserProfileGetData, ThrowOnError>) => (options?.client ?? client).get<GetUserProfileUserProfileGetResponses, unknown, ThrowOnError>({
     security: [{ scheme: 'bearer', type: 'http' }],
     url: '/UserProfile/',
     ...options
@@ -77,13 +77,4 @@ export const createUserProfileUserProfilePost = <ThrowOnError extends boolean = 
         'Content-Type': 'application/json',
         ...options.headers
     }
-});
-
-/**
- * Get Userprofile
- */
-export const getUserProfileUserProfileUserProfileGet = <ThrowOnError extends boolean = false>(options?: Options<GetUserProfileUserProfileUserProfileGetData, ThrowOnError>) => (options?.client ?? client).get<GetUserProfileUserProfileUserProfileGetResponses, unknown, ThrowOnError>({
-    security: [{ scheme: 'bearer', type: 'http' }],
-    url: '/UserProfile/UserProfile',
-    ...options
 });

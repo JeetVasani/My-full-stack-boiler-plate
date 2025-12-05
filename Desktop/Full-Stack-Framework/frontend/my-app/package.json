@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "generate:sdk": "npx @hey-api/openapi-ts --input http://localhost:8000/openapi.json --output src/sdk --client axios",
+    "watch:sdk": "chokidar \"../backend/**/*.py\" -c \"npm run generate:sdk\"",
+    "dev": "npm-run-all -p watch:sdk next",
+    "next": "next dev"
+
   },
   "dependencies": {
     "next": "16.0.7",
@@ -25,3 +29,4 @@
     "typescript": "^5"
   }
 }
+

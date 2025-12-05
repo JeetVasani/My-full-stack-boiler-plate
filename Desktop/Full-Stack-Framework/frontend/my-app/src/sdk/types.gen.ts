@@ -197,23 +197,9 @@ export type DeleteUserProfileUserProfileDeleteResponses = {
 export type GetUserProfileUserProfileGetData = {
     body?: never;
     path?: never;
-    query: {
-        /**
-         * Userprofile Id
-         */
-        UserProfile_id: number;
-    };
+    query?: never;
     url: '/UserProfile/';
 };
-
-export type GetUserProfileUserProfileGetErrors = {
-    /**
-     * Validation Error
-     */
-    422: HttpValidationError;
-};
-
-export type GetUserProfileUserProfileGetError = GetUserProfileUserProfileGetErrors[keyof GetUserProfileUserProfileGetErrors];
 
 export type GetUserProfileUserProfileGetResponses = {
     /**
@@ -243,18 +229,4 @@ export type CreateUserProfileUserProfilePostResponses = {
      * Successful Response
      */
     201: unknown;
-};
-
-export type GetUserProfileUserProfileUserProfileGetData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/UserProfile/UserProfile';
-};
-
-export type GetUserProfileUserProfileUserProfileGetResponses = {
-    /**
-     * Successful Response
-     */
-    200: unknown;
 };
