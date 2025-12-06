@@ -1,20 +1,34 @@
 "use client";
 import { useState } from "react";
-import { loginUser } from "@/src/lib/api";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { loginUser } from "@/src/lib/api";
 
 export default function LoginPage() {
   const [form, setForm] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
   const router = useRouter();
 
-  async function handleLogin(e) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
+    setError("");
 
-    const res = await loginUser(form);
-    localStorage.setItem("token", res.access_token);
+    try {
+      const res = await loginUser(form);
 
-    router.push("/playground");
+      if (!res?.access_token) {
+        setError("Invalid response from server.");
+        return;
+      }
+
+      localStorage.setItem("token", res.access_token);
+      router.push("/playground");
+    } catch (err: any) {
+      setError(
+        err.response?.data?.detail ||
+          "Login failed. Please check your credentials."
+      );
+    }
   }
 
   return (
@@ -27,11 +41,16 @@ export default function LoginPage() {
           Login
         </h2>
 
+        {error && (
+          <p className="text-red-500 text-sm text-center mb-4">{error}</p>
+        )}
+
         <input
           placeholder="Username"
           value={form.username}
           onChange={(e) => setForm({ ...form, username: e.target.value })}
           className="w-full px-3 py-2 mb-4 rounded-md bg-gray-700 text-gray-100 placeholder-gray-400 outline-none focus:ring-2 focus:ring-blue-600"
+          required
         />
 
         <input
@@ -40,6 +59,7 @@ export default function LoginPage() {
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
           className="w-full px-3 py-2 mb-6 rounded-md bg-gray-700 text-gray-100 placeholder-gray-400 outline-none focus:ring-2 focus:ring-blue-600"
+          required
         />
 
         <button
@@ -49,13 +69,12 @@ export default function LoginPage() {
           Login
         </button>
 
-        {/* Register link */}
         <div className="mt-4 text-center">
           <Link
             href="/register"
             className="text-blue-400 hover:text-blue-500 underline text-sm"
           >
-            Don't have an account? Register
+            Don&apos;t have an account? Register
           </Link>
         </div>
       </form>
