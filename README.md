@@ -26,6 +26,8 @@ A production-ready full stack boilerplate designed to accelerate development. It
 - JWT Authentication
 - REST APIs
 
+### Database
+- Postgre SQL (Others can be configured according to need)
 
 ---
 
